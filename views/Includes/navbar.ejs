@@ -155,7 +155,7 @@
                 </li>
 
 
-                <% if(!currentUser){ %>
+                <% if(typeof currentUser === "undefined" || !currentUser){ %>
                     <!-- Signup -->
                     <li class="nav-item">
                         <a class="nav-link" href="/signup">
@@ -172,7 +172,7 @@
                     <% } %>
 
 
-                        <% if(currentUser) { %>
+                        <% if(typeof currentUser !== "undefined" && currentUser) { %>
                             <!-- Logout -->
                             <li class="nav-item">
                                 <a class="nav-link" href="/logout">
