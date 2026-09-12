@@ -100,18 +100,43 @@ app.get("/", (req, res) => {
 });
 
 
-app.all("/*splat", (req, res, next) => {
-    next(new ExpressError(404, "page not found"));
-})
+// app.all("/*splat", (req, res, next) => {
+//     next(new ExpressError(404, "page not found"));
+// })
+
+app.use((req, res, next) => {
+    console.log("404 REQUEST:", req.method, req.originalUrl);
+    next(new ExpressError(404, "Page not found"));
+});
+
 
 //Middleware
+// app.use((err, req, res, next) => {
+//     let {
+//         statusCode = 500,
+//         message = "Something went wrong!"
+//     } = err;
+//     res.status(statusCode).render("error.ejs", {
+//         err,
+//         currentUser: req.user || null
+//     });
+// });
+
 app.use((err, req, res, next) => {
-    let {
-        statusCode = 500,
-        message = "Something went wrong!"
-    } = err;
+    console.error("========== ERROR ==========");
+    console.error("URL:", req.originalUrl);
+    console.error("METHOD:", req.method);
+    console.error("ERROR:", err);
+    console.error("MESSAGE:", err?.message);
+    console.error("STACK:", err?.stack);
+
+    const statusCode = err?.statusCode || 500;
+    const message = err?.message || "Something went wrong!";
+
     res.status(statusCode).render("error.ejs", {
-        err,
+        err: {
+            message: message
+        },
         currentUser: req.user || null
     });
 });

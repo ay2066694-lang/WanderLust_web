@@ -1,31 +1,49 @@
-<%# layout("/layout/boilerplate.ejs") %>/
+<% layout("/layout/boilerplate") %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Test Listings</title>
-</head>
-<body>
+<h1 class="mt-4">All Listings</h1>
 
-<h1>LISTINGS PAGE WORKING</h1>
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
 
-<h2>Total Listings: <%= allListing.length %></h2>
+    <% for(let list of allListing) { %>
 
-<% for(let list of allListing) { %>
+        <div class="col mb-4">
+            <a href="/listings/<%= list.id %>" class="listing-link">
 
-    <div>
-        <h3><%= list.title %></h3>
-        <p><%= list.location %></p>
-        <p>₹ <%= list.price %></p>
-        <img src="<%= list.image.url %>" width="300">
-    </div>
+                <div class="card card-listing">
 
-<% } %>
+                    <img
+                        src="<%= list.image.url %>"
+                        class="card-img-top"
+                        alt="listing_image"
+                    >
 
-</body>
-</html>
+                    <div class="card-body">
 
-    <!-- <style>
+                        <p class="card-text">
+                            <b><%= list.title %></b>
+                            <br>
+
+                            &#8377;
+                            <%= list.price ? list.price.toLocaleString("en-IN") : "Price not available" %>
+                            / Night
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+        </div>
+
+    <% } %>
+
+</div>
+
+
+<!-- <% layout("/layout/boilerplate.ejs") %>
+
+    <style>
         #filter {
             display: flex !important;
             flex-wrap: nowrap !important;
@@ -157,12 +175,8 @@
             <p>Try searching for another destination.</p>
         </div>
         <% } %>
-        <h1 style="color: red;">Listings: <%= allListing.length %></h1>
             <div class="row row-cols-lg-3">
-                <% for(let list of allListing) { %>
-                      <h2 style="color: blue;">
-            <%= list.title %>
-        </h2>   
+                <% for(let list of allListing) { %>  
                     <a href="/listings/<%= list.id %>" class="listing-link">
                         <div class="card col card-listing">
                             <img src="<%=list.image.url%>" class="card-img-top" alt="listing_image">
