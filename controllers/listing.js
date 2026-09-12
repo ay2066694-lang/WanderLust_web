@@ -51,9 +51,18 @@ module.exports.indexRoute = async (req, res, next) => {
         res.render("listing/index.ejs", {
             allListing,
             search: search || ""
-        });
+        }, (err, html) => {
 
-        console.log("EJS render completed.");
+            if (err) {
+                console.error("========== EJS RENDER ERROR ==========");
+                console.error(err);
+                return next(err);
+            }
+
+            console.log("========== EJS RENDER SUCCESS ==========");
+
+            res.send(html);
+        });
 
     } catch (err) {
         console.error("========== LISTING ERROR ==========");
@@ -75,11 +84,11 @@ module.exports.newRoute = (req, res) => {
 module.exports.showRoute = (async (req, res, next) => {
     let { id } = req.params;
     const listing = await Listing.findById(id)
-    .populate({path: "reviews", populate: {path: "author"}})
-    .populate("owner");
+        .populate({ path: "reviews", populate: { path: "author" } })
+        .populate("owner");
     if (!listing) {
         req.flash("error", "This Listing is dose not exist!");
-       return res.redirect("/listings");
+        return res.redirect("/listings");
     }
     // console.log(listing);
     res.render("listing/show.ejs", { listing });
@@ -94,7 +103,7 @@ module.exports.createRoute = async (req, res, next) => {
     // console.log(url, "..", filename);
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    newListing.image = {url, filename};
+    newListing.image = { url, filename };
     // Location se coordinates nikalna
     const location = req.body.listing.location;
     const response = await fetch(
@@ -125,7 +134,7 @@ module.exports.createRoute = async (req, res, next) => {
 
 
 //Edit route
-module.exports.editRoute = async(req, res, next) => {
+module.exports.editRoute = async (req, res, next) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     if (!listing) {
@@ -139,24 +148,24 @@ module.exports.editRoute = async(req, res, next) => {
 
 //Update route
 module.exports.updateRoute = async (req, res, next) => {
-        let { id } = req.params;
-        // console.log("Update data:", req.body.listing);
-        let updatedListing = await Listing.findByIdAndUpdate(
-            id,
-            { ...req.body.listing },
-            {
-                new: true,
-                runValidators: true
-            }
-        );
-        if (typeof req.file !== "undefined") {
-            let url = req.file.path;
-            let filename = req.file.filename;
-            updatedListing.image = {url, filename};
-            await updatedListing.save();
+    let { id } = req.params;
+    // console.log("Update data:", req.body.listing);
+    let updatedListing = await Listing.findByIdAndUpdate(
+        id,
+        { ...req.body.listing },
+        {
+            new: true,
+            runValidators: true
         }
-        req.flash("success", "Listing Updated!");
-        res.redirect(`/listings/${id}`);
+    );
+    if (typeof req.file !== "undefined") {
+        let url = req.file.path;
+        let filename = req.file.filename;
+        updatedListing.image = { url, filename };
+        await updatedListing.save();
+    }
+    req.flash("success", "Listing Updated!");
+    res.redirect(`/listings/${id}`);
 };
 
 
