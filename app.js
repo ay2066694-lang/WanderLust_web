@@ -107,10 +107,14 @@ app.all("/*splat", (req, res, next) => {
 //Middleware
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Somethings went wrong!" } = err;
-    res.render("error.ejs", { err });
-    res.status(statusCode)
-})
+    res.status(statusCode).render("error.ejs", {
+        err,
+        currentUser: req.user || null
+    });
+});
 
-app.listen(PORT, () => {
-    console.log(`Server is running:${PORT}`);
-})
+console.log("Starting server...");
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on 0.0.0.0:${PORT}`);
+});
