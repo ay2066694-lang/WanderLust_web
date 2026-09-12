@@ -12,7 +12,7 @@ const upload = multer({storage});
 const { indexRoute, newRoute, showRoute, createRoute, editRoute, updateRoute, deleteRoute } = require("../controllers/listing.js");
 
 router.route("/")
-.get(wrapAsync(indexRoute))
+.get(indexRoute)
 .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(createRoute));
 
 
