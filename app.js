@@ -9,7 +9,7 @@ const ejsmate = require("ejs-mate");
 const {MongoStore} = require("connect-mongo");
 const ExpressError = require("./utils/ExpressError.js");
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -47,13 +47,13 @@ main().then(() => {
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
-    cryto: {
-        secret: process.env.SECRET
-    },
+    crypto: {
+    secret: process.env.SECRET
+},
     touchAfter: 24 * 3600,
 });
 
-store.on("error", ()=>{
+store.on("error", (err)=>{
     console.log("Error in Mongo Session Store", err);
 });
 
@@ -95,6 +95,9 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 
 app.all("/*splat", (req, res, next) => {
