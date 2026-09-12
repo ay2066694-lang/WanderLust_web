@@ -51,17 +51,6 @@ module.exports.indexRoute = async (req, res, next) => {
         res.render("listing/index.ejs", {
             allListing,
             search: search || ""
-        }, (err, html) => {
-
-            if (err) {
-                console.error("========== EJS RENDER ERROR ==========");
-                console.error(err);
-                return next(err);
-            }
-
-            console.log("========== EJS RENDER SUCCESS ==========");
-
-            res.send(html);
         });
 
     } catch (err) {

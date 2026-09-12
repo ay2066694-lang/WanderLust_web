@@ -106,6 +106,7 @@ app.all("/*splat", (req, res, next) => {
 
 //Middleware
 app.use((err, req, res, next) => {
+    console.log("🔥 ACTUAL ERROR:");
     let { statusCode = 500, message = "Somethings went wrong!" } = err;
     res.status(statusCode).render("error.ejs", {
         err,
