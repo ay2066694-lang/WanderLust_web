@@ -1,6 +1,31 @@
-<% layout("/layout/boilerplate.ejs") %>
+<%# layout("/layout/boilerplate.ejs") %>/
 
-    <style>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Listings</title>
+</head>
+<body>
+
+<h1>LISTINGS PAGE WORKING</h1>
+
+<h2>Total Listings: <%= allListing.length %></h2>
+
+<% for(let list of allListing) { %>
+
+    <div>
+        <h3><%= list.title %></h3>
+        <p><%= list.location %></p>
+        <p>₹ <%= list.price %></p>
+        <img src="<%= list.image.url %>" width="300">
+    </div>
+
+<% } %>
+
+</body>
+</html>
+
+    <!-- <style>
         #filter {
             display: flex !important;
             flex-wrap: nowrap !important;
@@ -137,7 +162,7 @@
                 <% for(let list of allListing) { %>
                       <h2 style="color: blue;">
             <%= list.title %>
-        </h2>
+        </h2>   
                     <a href="/listings/<%= list.id %>" class="listing-link">
                         <div class="card col card-listing">
                             <img src="<%=list.image.url%>" class="card-img-top" alt="listing_image">
@@ -169,4 +194,4 @@
                         }
                     }
                 })
-            </script>
+            </script> -->
