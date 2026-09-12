@@ -1,0 +1,186 @@
+<style>
+    .btn-search {
+        background: #fe424d;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 0.50rem;
+        border-radius: 2rem;
+        padding: 0.40rem 0.90rem;
+    }
+
+    .search-input {
+        border-radius: 2rem;
+        padding: 0.40rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .btn-search:hover {
+        border: 1px solid black !important;
+        background: white !important;
+        color: black !important;
+    }
+
+
+    /* Search */
+    .search-form {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box {
+        flex-shrink: 0;
+    }
+
+
+    /* Important */
+    .navbar-collapse {
+        align-items: center;
+    }
+
+
+    /* Search input desktop */
+    .search-input {
+        width: 250px;
+    }
+
+
+    /* ================================
+   MOBILE NAVBAR
+   ================================ */
+    @media (max-width: 991.98px) {
+
+        /* Navbar ki height fixed rahe */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+        }
+
+        /* Collapse ko navbar ke flow se bahar karo */
+        .navbar-collapse {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+
+            background-color: #fff;
+
+            padding: 1rem 1rem;
+
+            z-index: 1040;
+
+            border-bottom: 1px solid #ddd;
+
+            /* Menu open hone par navbar ki height nahi badhegi */
+        }
+
+        /* Menu ke andar white background */
+        .navbar-collapse .navbar-nav,
+        .navbar-collapse .search-box,
+        .navbar-collapse .search-form {
+            background-color: #fff;
+        }
+
+        /* Search */
+        .search-box {
+            width: 100%;
+            margin-left: 0 !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .search-form {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+        }
+
+        .btn-search {
+            flex-shrink: 0;
+        }
+    }
+</style>
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="/listings">
+            <i class="fa-regular fa-compass"></i>
+        </a>
+
+
+        <!-- Mobile Hamburger -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <!-- Navbar Collapse -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Explore -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings">
+                        Explore
+                    </a>
+                </li>
+            </ul>
+
+
+            <!-- Search -->
+            <form class="search-form ms-auto" action="/listings" method="GET" role="search">
+                <input class="form-control search-input me-2" type="search" name="search"
+                    placeholder="Search destinations...">
+                <button class="btn btn-search" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Search
+                </button>
+            </form>
+
+
+            <!-- Right Side -->
+            <ul class="navbar-nav ms-lg-auto mb-2 mb-lg-0">
+                <!-- Airbnb your home -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings/new">
+                        Airbnb your home
+                    </a>
+                </li>
+
+
+                <% if(!currentUser){ %>
+                    <!-- Signup -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">
+                            <b>Signup</b>
+                        </a>
+                    </li>
+
+                    <!-- Login -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <b>Login</b>
+                        </a>
+                    </li>
+                    <% } %>
+
+
+                        <% if(currentUser) { %>
+                            <!-- Logout -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">
+                                    <b>Logout</b>
+                                </a>
+                            </li>
+                            <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
