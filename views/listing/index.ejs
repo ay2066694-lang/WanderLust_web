@@ -132,8 +132,12 @@
             <p>Try searching for another destination.</p>
         </div>
         <% } %>
+        <h1 style="color: red;">Listings: <%= allListing.length %></h1>
             <div class="row row-cols-lg-3">
                 <% for(let list of allListing) { %>
+                      <h2 style="color: blue;">
+            <%= list.title %>
+        </h2>
                     <a href="/listings/<%= list.id %>" class="listing-link">
                         <div class="card col card-listing">
                             <img src="<%=list.image.url%>" class="card-img-top" alt="listing_image">
