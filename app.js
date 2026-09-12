@@ -106,12 +106,10 @@ app.all("/*splat", (req, res, next) => {
 
 //Middleware
 app.use((err, req, res, next) => {
-    console.log("🔥🔥🔥 ACTUAL ERROR MESSAGE:");
-    console.log("MESSAGE:", err?.message);
-    console.log("STACK:", err?.stack);
-    console.log("NAME:", err?.name);
-
-    let { statusCode = 500, message = "Somethings went wrong!" } = err;
+    let {
+        statusCode = 500,
+        message = "Something went wrong!"
+    } = err;
     res.status(statusCode).render("error.ejs", {
         err,
         currentUser: req.user || null

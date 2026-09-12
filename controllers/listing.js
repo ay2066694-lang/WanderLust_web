@@ -34,10 +34,6 @@ module.exports.indexRoute = async (req, res, next) => {
         } else {
             allListing = await Listing.find({});
         }
-
-        console.log("========== LISTING DEBUG ==========");
-        console.log("COUNT:", allListing.length);
-
         allListing.forEach((list, index) => {
             console.log(`LISTING ${index + 1}:`);
             console.log("Title:", list.title);
