@@ -2,46 +2,68 @@ const Listing = require("../models/listing.js");
 
 //index route
 module.exports.indexRoute = async (req, res, next) => {
-    const { search } = req.query;
-    let allListing;
+    try {
+        const { search } = req.query;
+        let allListing;
 
-    if (search && search.trim() !== "") {
-        const searchText = search.trim();
+        if (search && search.trim() !== "") {
+            const searchText = search.trim();
 
-        allListing = await Listing.find({
-            $or: [
-                {
-                    title: {
-                        $regex: searchText,
-                        $options: "i"
+            allListing = await Listing.find({
+                $or: [
+                    {
+                        title: {
+                            $regex: searchText,
+                            $options: "i"
+                        }
+                    },
+                    {
+                        location: {
+                            $regex: searchText,
+                            $options: "i"
+                        }
+                    },
+                    {
+                        country: {
+                            $regex: searchText,
+                            $options: "i"
+                        }
                     }
-                },
-                {
-                    location: {
-                        $regex: searchText,
-                        $options: "i"
-                    }
-                },
-                {
-                    country: {
-                        $regex: searchText,
-                        $options: "i"
-                    }
-                }
-            ]
+                ]
+            });
+        } else {
+            allListing = await Listing.find({});
+        }
+
+        console.log("========== LISTING DEBUG ==========");
+        console.log("COUNT:", allListing.length);
+
+        allListing.forEach((list, index) => {
+            console.log(`LISTING ${index + 1}:`);
+            console.log("Title:", list.title);
+            console.log("Image URL:", list.image?.url);
+            console.log("Price:", list.price);
+            console.log("ID:", list.id);
         });
-    } else {
-        allListing = await Listing.find({});
+
+        console.log("Starting EJS render...");
+
+        res.render("listing/index.ejs", {
+            allListing,
+            search: search || ""
+        });
+
+        console.log("EJS render completed.");
+
+    } catch (err) {
+        console.error("========== LISTING ERROR ==========");
+        console.error(err);
+        next(err);
     }
-
-    console.log("LISTINGS COUNT:", allListing.length);
-    console.log("LISTINGS DATA:", allListing);
-
-    res.render("listing/index.ejs", {
-        allListing,
-        search: search || ""
-    });
 };
+
+
+
 
 
 //New route
