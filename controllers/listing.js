@@ -7,28 +7,36 @@ module.exports.indexRoute = async (req, res, next) => {
 
     if (search && search.trim() !== "") {
         const searchText = search.trim();
+
         allListing = await Listing.find({
             $or: [
                 {
                     title: {
                         $regex: searchText,
-                        $options: "i" 
-                    }},
+                        $options: "i"
+                    }
+                },
                 {
                     location: {
                         $regex: searchText,
                         $options: "i"
-                    }},
+                    }
+                },
                 {
                     country: {
                         $regex: searchText,
                         $options: "i"
-                    }}
+                    }
+                }
             ]
         });
     } else {
         allListing = await Listing.find({});
-}
+    }
+
+    console.log("LISTINGS COUNT:", allListing.length);
+    console.log("LISTINGS DATA:", allListing);
+
     res.render("listing/index.ejs", {
         allListing,
         search: search || ""
