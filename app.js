@@ -1,12 +1,12 @@
-if(process.env.NODE_ENV != "production"){
-require('dotenv').config();
+if (process.env.NODE_ENV != "production") {
+    require('dotenv').config();
 }
 const mongoose = require("mongoose");
 const express = require("express");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
-const {MongoStore} = require("connect-mongo");
+const { MongoStore } = require("connect-mongo");
 const ExpressError = require("./utils/ExpressError.js");
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -21,7 +21,7 @@ const userRouter = require("./route/user.js");
 const User = require("./models/user.js");
 
 
-const dbUrl = process.env.MONGO_URL ;
+const dbUrl = process.env.MONGO_URL;
 
 
 app.set("view engine", "ejs");
@@ -48,12 +48,12 @@ main().then(() => {
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-    secret: process.env.SECRET
-},
+        secret: process.env.SECRET
+    },
     touchAfter: 24 * 3600,
 });
 
-store.on("error", (err)=>{
+store.on("error", (err) => {
     console.log("Error in Mongo Session Store", err);
 });
 
@@ -106,7 +106,11 @@ app.all("/*splat", (req, res, next) => {
 
 //Middleware
 app.use((err, req, res, next) => {
-    console.log("🔥 ACTUAL ERROR:");
+    console.log("🔥🔥🔥 ACTUAL ERROR MESSAGE:");
+    console.log("MESSAGE:", err?.message);
+    console.log("STACK:", err?.stack);
+    console.log("NAME:", err?.name);
+
     let { statusCode = 500, message = "Somethings went wrong!" } = err;
     res.status(statusCode).render("error.ejs", {
         err,
