@@ -112,16 +112,42 @@ body {
 /* map */
 #map {
     height: 350px;
-    width: 100vh;
+    width: 100%;
     border-radius: 10px;
 }
 
+/* Responsive Design */
+@media (max-width: 767px) {
 
+    /* Show page */
+    .show-img {
+        height: 30vh;
+    }
 
-/* .social-icon{
-    height: 100%;
+    .btns {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .btns .btn,
+    .btns .btn-del {
+        width: auto !important;
+        margin-left: 0 !important;
+        padding: .40rem .90rem !important;
+    }
+
+    /* Map */
+    #map {
+        width: 100% !important;
+        height: 280px;
+    }
+
+    /* Prevent horizontal overflow */
+    .container {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
 }
-
-.info-links{
-  height: 100%;
-} */
