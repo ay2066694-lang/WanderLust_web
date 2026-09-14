@@ -9,11 +9,15 @@ const {storage} = require("../cloudConfig.js");
 const upload = multer({storage});
 
 
-const { indexRoute, newRoute, showRoute, createRoute, editRoute, updateRoute, deleteRoute } = require("../controllers/listing.js");
+const { indexRoute, newRoute, showRoute, createRoute, editRoute, updateRoute, deleteRoute, searchSuggestions } = require("../controllers/listing.js");
 
 router.route("/")
 .get(wrapAsync(indexRoute))
 .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(createRoute));
+
+
+//Search seggestions
+router.get("/suggestions", searchSuggestions);
 
 
 //New route

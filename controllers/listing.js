@@ -33,6 +33,32 @@ module.exports.indexRoute = async (req, res, next) => {
 };
 
 
+//Search Suggestions
+module.exports.searchSuggestions = async (req, res, next) => {
+    try {
+        const { search } = req.query;
+
+        if (!search || search.trim() === "") {
+            return res.json([]);
+        }
+        const searchText = search.trim();
+        const suggestions = await Listing.find({
+            $or: [
+                { title: { $regex: searchText, $options: "i" } },
+                { location: { $regex: searchText, $options: "i" } },
+                { country: { $regex: searchText, $options: "i" } }
+            ]
+        })
+        .select("title location country")
+        .limit(5);
+        res.json(suggestions);
+
+    } catch (err) {
+        next(err);
+    }
+};
+
+
 //New route
 module.exports.newRoute = (req, res) => {
     res.render("listing/new.ejs")

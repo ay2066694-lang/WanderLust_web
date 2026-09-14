@@ -38,12 +38,38 @@
         width: 250px;
     }
 
+    .navbar-nav{
+        display: flex;
+        flex-direction: column;
+        gap: .70rem;
+    }
+
+    .user-btn{
+        background: black !important;
+        color: white !important;
+        border-radius: 3rem;
+        padding: .30rem 1.5rem .30rem 1.5rem !important;
+        font-size: 1rem;
+        text-align: center;
+
+    }
+   
+    .user-btn:hover{
+        background: red !important;
+        color: white !important;
+    }
+
+
     @media (max-width: 991.98px) {
         .navbar {
             position: sticky;
             top: 0;
             z-index: 1050;
         }
+
+         .navbar-nav{
+            display: inline-block;
+         }
 
         .navbar-collapse {
             position: absolute;
@@ -116,6 +142,9 @@
             <form class="search-form ms-auto" action="/listings" method="GET" role="search">
                 <input class="form-control search-input me-2" type="search" name="search"
                     placeholder="Search destinations...">
+
+                 <div id="searchSuggestions" class="search-suggestions"></div>
+
                     <button class="btn btn-search" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     Search
@@ -135,14 +164,14 @@
                 <% if(typeof currentUser === "undefined" || !currentUser){ %>
                     <!-- Signup -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/signup">
+                        <a class="nav-link user-btn" href="/signup">
                             <b>Signup</b>
                         </a>
                     </li>
 
                     <!-- Login -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">
+                        <a class="nav-link user-btn" href="/login">
                             <b>Login</b>
                         </a>
                     </li>
@@ -152,7 +181,7 @@
                         <% if(typeof currentUser !== "undefined" && currentUser) { %>
                             <!-- Logout -->
                             <li class="nav-item">
-                                <a class="nav-link" href="/logout">
+                                <a class="nav-link user-btn" href="/logout">
                                     <b>Logout</b>
                                 </a>
                             </li>
