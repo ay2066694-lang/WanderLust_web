@@ -38,13 +38,13 @@
         width: 250px;
     }
 
-    .navbar-nav{
+    .navbar-nav {
         display: flex;
         flex-direction: column;
         gap: .70rem;
     }
 
-    .user-btn{
+    .user-btn {
         background: black !important;
         color: white !important;
         border-radius: 3rem;
@@ -53,8 +53,8 @@
         text-align: center;
 
     }
-   
-    .user-btn:hover{
+
+    .user-btn:hover {
         background: red !important;
         color: white !important;
     }
@@ -67,9 +67,11 @@
             z-index: 1050;
         }
 
-         .navbar-nav{
-            display: inline-block;
-         }
+        .navbar-nav {
+            display: inline-flex;
+            flex-direction: column;
+            gap: .89rem;
+        }
 
         .navbar-collapse {
             position: absolute;
@@ -81,10 +83,11 @@
             z-index: 1040;
             border-bottom: 1px solid #ddd;
         }
+
         .navbar-collapse .navbar-nav,
         .navbar-collapse .search-box,
         .navbar-collapse .search-form {
-        background-color: #fff;
+            background-color: #fff;
         }
 
         .search-box {
@@ -143,9 +146,9 @@
                 <input class="form-control search-input me-2" type="search" name="search"
                     placeholder="Search destinations...">
 
-                 <div id="searchSuggestions" class="search-suggestions"></div>
+                <div id="searchSuggestions" class="search-suggestions"></div>
 
-                    <button class="btn btn-search" type="submit">
+                <button class="btn btn-search" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     Search
                 </button>
@@ -161,7 +164,7 @@
                 </li>
 
 
-                <% if(typeof currentUser === "undefined" || !currentUser){ %>
+                <% if(typeof currentUser==="undefined" || !currentUser){ %>
                     <!-- Signup -->
                     <li class="nav-item">
                         <a class="nav-link user-btn" href="/signup">
@@ -178,14 +181,14 @@
                     <% } %>
 
 
-                        <% if(typeof currentUser !== "undefined" && currentUser) { %>
+                        <% if(typeof currentUser !=="undefined" && currentUser) { %>
                             <!-- Logout -->
                             <li class="nav-item">
                                 <a class="nav-link user-btn" href="/logout">
                                     <b>Logout</b>
                                 </a>
                             </li>
-                    <% } %>
+                            <% } %>
             </ul>
         </div>
     </div>
