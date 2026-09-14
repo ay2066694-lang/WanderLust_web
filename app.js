@@ -15,14 +15,13 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
+
 const listingRouter = require("./route/listing.js");
 const reviewRouter = require("./route/review.js");
 const userRouter = require("./route/user.js");
 const User = require("./models/user.js");
 
-
 const dbUrl = process.env.MONGO_URL;
-
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -42,7 +41,6 @@ main().then(() => {
 }).catch((err) => {
     console.log(err);
 })
-
 
 
 const store = MongoStore.create({
@@ -65,7 +63,6 @@ const sessionOption = {
         httpOnly: true,
     }
 }
-
 
 
 app.use(session(sessionOption));
@@ -97,36 +94,17 @@ app.get("/", (req, res) => {
 });
 
 
-// app.all("/*splat", (req, res, next) => {
-//     next(new ExpressError(404, "page not found"));
-// })
-
 app.use((req, res, next) => {
     console.log("404 REQUEST:", req.method, req.originalUrl);
     next(new ExpressError(404, "Page not found"));
 });
 
 
-//Middleware
-// app.use((err, req, res, next) => {
-//     let {
-//         statusCode = 500,
-//         message = "Something went wrong!"
-//     } = err;
-//     res.status(statusCode).render("error.ejs", {
-//         err,
-//         currentUser: req.user || null
-//     });
-// });
+app.get("/favicon.ico", (req, res) => {
+    res.status(204).end();
+});
 
 app.use((err, req, res, next) => {
-    console.error("========== ERROR ==========");
-    console.error("URL:", req.originalUrl);
-    console.error("METHOD:", req.method);
-    console.error("ERROR:", err);
-    console.error("MESSAGE:", err?.message);
-    console.error("STACK:", err?.stack);
-
     const statusCode = err?.statusCode || 500;
     const message = err?.message || "Something went wrong!";
 
@@ -138,8 +116,8 @@ app.use((err, req, res, next) => {
     });
 });
 
-console.log("Starting server...");
 
+console.log("Starting server...");
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server is running on 0.0.0.0:${PORT}`);
 });

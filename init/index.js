@@ -12,11 +12,9 @@ const initDB = async () => {
         initData.data = initData.data.map((obj)=> ({...obj, owner: "6a9a65fd44edb512adb5fc49"}))
         await Listing.insertMany(initData.data);
         console.log("data was initialized");
-        // Check description
         const data = await Listing.findOne({
             title: "Secluded Beach House in Costa Rica"
         });
-        // console.log("Inserted data:");
 
         await mongoose.connection.close();
     } catch (err) {

@@ -21,8 +21,6 @@
         color: black !important;
     }
 
-
-    /* Search */
     .search-form {
         display: flex;
         align-items: center;
@@ -32,57 +30,37 @@
         flex-shrink: 0;
     }
 
-
-    /* Important */
     .navbar-collapse {
         align-items: center;
     }
 
-
-    /* Search input desktop */
     .search-input {
         width: 250px;
     }
 
-
-    /* ================================
-   MOBILE NAVBAR
-   ================================ */
     @media (max-width: 991.98px) {
-
-        /* Navbar ki height fixed rahe */
         .navbar {
             position: sticky;
             top: 0;
             z-index: 1050;
         }
 
-        /* Collapse ko navbar ke flow se bahar karo */
         .navbar-collapse {
             position: absolute;
             top: 100%;
             left: 0;
             width: 100%;
-
             background-color: #fff;
-
             padding: 1rem 1rem;
-
             z-index: 1040;
-
             border-bottom: 1px solid #ddd;
-
-            /* Menu open hone par navbar ki height nahi badhegi */
         }
-
-        /* Menu ke andar white background */
         .navbar-collapse .navbar-nav,
         .navbar-collapse .search-box,
         .navbar-collapse .search-form {
-            background-color: #fff;
+        background-color: #fff;
         }
 
-        /* Search */
         .search-box {
             width: 100%;
             margin-left: 0 !important;
@@ -115,14 +93,14 @@
         </a>
 
 
-        <!-- Mobile Hamburger -->
+        <!-- Mobile Menu -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
 
-        <!-- Navbar Collapse -->
+        <!-- Navbar -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Explore -->
             <ul class="navbar-nav mb-2 mb-lg-0">
@@ -138,7 +116,7 @@
             <form class="search-form ms-auto" action="/listings" method="GET" role="search">
                 <input class="form-control search-input me-2" type="search" name="search"
                     placeholder="Search destinations...">
-                <button class="btn btn-search" type="submit">
+                    <button class="btn btn-search" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     Search
                 </button>
@@ -147,7 +125,6 @@
 
             <!-- Right Side -->
             <ul class="navbar-nav ms-lg-auto mb-2 mb-lg-0">
-                <!-- Airbnb your home -->
                 <li class="nav-item">
                     <a class="nav-link" href="/listings/new">
                         Airbnb your home
@@ -179,7 +156,7 @@
                                     <b>Logout</b>
                                 </a>
                             </li>
-                            <% } %>
+                    <% } %>
             </ul>
         </div>
     </div>
